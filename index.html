@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ammora Pool Watch — tAMM live pool dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Ammora Pool Watch</h1>
+      <p class="subtitle">Live tAMM pool dashboard on GIWA Sepolia (chain 91342)</p>
+      <div class="header-actions">
+        <p id="status" role="status" aria-live="polite">Loading…</p>
+        <button id="connectBtn" type="button">Connect wallet</button>
+        <button id="refreshBtn" type="button">Refresh</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section class="card" aria-labelledby="tokenHeading">
+        <h2 id="tokenHeading">tAMM Token</h2>
+        <dl>
+          <dt>Name</dt>
+          <dd><span id="tokName">—</span></dd>
+          <dt>Symbol</dt>
+          <dd><span id="tokSymbol">—</span></dd>
+          <dt>Decimals</dt>
+          <dd><span id="tokDecimals">—</span></dd>
+          <dt>Total supply</dt>
+          <dd><span id="tokSupply">—</span></dd>
+          <dt>Token address</dt>
+          <dd><span id="tokAddress" class="address">—</span></dd>
+        </dl>
+      </section>
+
+      <section class="card" aria-labelledby="poolHeading">
+        <h2 id="poolHeading">Pool &amp; Curve</h2>
+        <dl>
+          <dt>Pool address</dt>
+          <dd><span id="poolAddress" class="address">—</span></dd>
+          <dt>Curve status</dt>
+          <dd><span id="curveStatus">—</span></dd>
+          <dt>Canonical pool</dt>
+          <dd><span id="canonicalPool">—</span></dd>
+        </dl>
+      </section>
+
+      <section class="card" aria-labelledby="vaultHeading">
+        <h2 id="vaultHeading">Vault</h2>
+        <dl>
+          <dt>Total deposited ETH</dt>
+          <dd><span id="vaultTotal">—</span></dd>
+          <dt>Vault address</dt>
+          <dd><span id="vaultAddress" class="address">—</span></dd>
+        </dl>
+      </section>
+
+      <section class="card" aria-labelledby="stakingHeading">
+        <h2 id="stakingHeading">Staking</h2>
+        <dl>
+          <dt>Staking period end</dt>
+          <dd><span id="stakePeriodEnd">—</span></dd>
+          <dt>Staking address</dt>
+          <dd><span id="stakeAddress" class="address">—</span></dd>
+        </dl>
+      </section>
+    </div>
+
+    <section class="card quote-panel" aria-labelledby="quoteHeading">
+      <h2 id="quoteHeading">Pool Quote</h2>
+      <fieldset class="direction-toggle">
+        <legend>Quote direction</legend>
+        <label>
+          <input type="radio" name="dir" value="eth2tamm" checked>
+          ETH → tAMM
+        </label>
+        <label>
+          <input type="radio" name="dir" value="tamm2eth">
+          tAMM → ETH
+        </label>
+      </fieldset>
+
+      <label for="amount">Input amount</label>
+      <input id="amount" type="number" step="any" min="0" value="0.01" aria-describedby="quoteNote">
+
+      <div class="quote-result" aria-live="polite" aria-atomic="true">
+        <dl>
+          <dt>Quoted output</dt>
+          <dd><span id="quoteOut">—</span></dd>
+          <dt>Quoted price</dt>
+          <dd><span id="quotePrice">—</span></dd>
+        </dl>
+      </div>
+      <p id="quoteNote">Quotes come from the pool’s <code>quoteExactIn</code> function.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>This is a read-only testnet dashboard built for the Ammora Season 2 Builder mission. Learn more at <a href="https://ammora.org">ammora.org</a>.</p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

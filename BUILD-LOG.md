@@ -28,3 +28,24 @@ Per the user's hard rule, the orchestrator did NOT write any app code itself. No
 files exist yet; nothing was published. Unblock options: restore a working bubblewrap /
 code-mode-host sandbox so workspace-write writes persist (as on 16 Nov), then re-run
 the build calls.
+
+## Update (2026-11-18 06:27–06:30 WIB): capture-route build succeeded
+
+The sandbox file-writing route stayed broken (two further probes by the main agent:
+shell tool unavailable even with the vendor bin on PATH; no stale code-mode-host
+processes). Workaround that preserves the user's rule — all code authored purely
+by Xingchi through Codex, key only ever used via Codex: Codex ran in read-only
+mode and printed each file between <<<FILE-START>>> / <<<FILE-END>>> markers;
+the orchestrator saved the output verbatim (mechanical extraction, no edits).
+
+| # | Timestamp (WIB) | Model | Provider | Purpose | Result |
+|---|-----------------|-------|----------|---------|--------|
+| 8 | 2026-11-18 06:27 | gpt-6-astra | xingchi | index.html (text capture) | OK — 3,816 bytes saved verbatim |
+| 9 | 2026-11-18 06:28 | gpt-6-astra | xingchi | style.css (text capture) | OK — 6,503 bytes saved verbatim |
+| 10 | 2026-11-18 06:29 | gpt-6-astra | xingchi | app.js (text capture) | OK — 9,965 bytes, `node --check` passes, all contract constants present |
+| 11 | 2026-11-18 06:29 | gpt-6-astra | xingchi | README.md (text capture) | OK — 1,378 bytes saved verbatim |
+
+Verification by orchestrator (no code written): live-RPC smoke test with the same
+ABIs/addresses as app.js — token info + totalSupply OK; quoteExactIn 0.01 ETH ->
+10.468199 tAMM; curve status 3 and canonicalPool matches; vault totalDeposited
+3,651.81 ETH; staking periodEnd 2027-02-14. All calls succeed.
